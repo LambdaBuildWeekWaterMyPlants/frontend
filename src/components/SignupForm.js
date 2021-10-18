@@ -10,6 +10,7 @@ export default function SignUp() {
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
 
+  // validtes input using yup and schema
   const validate = (name, value) => {
     yup
       .reach(schema, name)
@@ -22,8 +23,15 @@ export default function SignUp() {
       })
   }
 
+  // deconstructs event
+  // validates input
+  // updates values state
   const handleChange = (event) => {
-    console.log(event.target.value)
+    const { name, value } = event.target
+
+    validate(name, value)
+
+    setValues((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = (event) => {
