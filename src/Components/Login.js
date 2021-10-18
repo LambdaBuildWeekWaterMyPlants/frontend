@@ -1,6 +1,6 @@
-
-
-
+import React from "react";
+import * as yup from 'yup'
+import {schema} from '../Validation/LoginSchema'
 
 export default function Login(props){
 
@@ -9,17 +9,33 @@ export default function Login(props){
         disabled,
         change,
         submit,
+        errors,
     } = props;
 
     const onChange = evt => {
-        const { name} = evt.target;
-        change(name);
+        const { name, value} = evt.target;
+        change(value);
+        validate(name, value)
       }
       
       const onSubmit = evt => {
         evt.preventDefault()
-        submit()
+        submit(values)
       }
+
+      const validate = (name, value) => {
+        yup
+          .reach(schema, name)
+          .validate(value)
+          .then(() => {
+            errors((prev) => ({ ...prev, [name]: '' }))
+          })
+          .catch((err) => {
+            errors((prev) => ({ ...prev, [name]: err.errors[0] }))
+          })
+      }
+
+ 
    return (
         <>
         <form className ="loginForm" onSubmit = {onSubmit}>
