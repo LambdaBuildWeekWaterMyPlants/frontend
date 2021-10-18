@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import { schema } from '../validation/signupSchema'
 
@@ -34,6 +34,8 @@ export default function SignUp({ submit }) {
     setValues((prev) => ({ ...prev, [name]: value }))
   }
 
+  // construct newUser object from form values
+  // pass newUser to callback function in props
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -45,6 +47,11 @@ export default function SignUp({ submit }) {
 
     submit(newUser)
   }
+
+  // enables button when validation passes
+  useEffect(() => {
+    schema.isValid(values).then((valid) => setDisabled(() => !valid))
+  })
 
   return (
     <form onSubmit={handleSubmit}>
