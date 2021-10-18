@@ -11,7 +11,7 @@ export default function SignUpForm({ submit }) {
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
 
-  // validtes input using yup and schema
+  // validates input using yup and schema
   const validate = (name, value) => {
     yup
       .reach(schema, name)
@@ -37,6 +37,7 @@ export default function SignUpForm({ submit }) {
 
   // construct newUser object from form values
   // pass newUser to callback function in props
+  // clears values state
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -47,12 +48,13 @@ export default function SignUpForm({ submit }) {
     }
 
     submit(newUser)
+    setValues(() => initialValues)
   }
 
   // enables button when validation passes
   useEffect(() => {
     schema.isValid(values).then((valid) => setDisabled(() => !valid))
-  })
+  }, [values])
 
   return (
     <form onSubmit={handleSubmit}>
