@@ -5,7 +5,7 @@ import { schema } from '../validation/signupSchema'
 const initialValues = { username: '', tel: '', password: '' }
 const initialErrors = { username: '', tel: '', password: '' }
 
-export default function SignUp() {
+export default function SignUp({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
@@ -37,7 +37,13 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    console.log('submitted')
+    const newUser = {
+      username: values.username.trim(),
+      tel: values.tel,
+      password: values.password,
+    }
+
+    submit(newUser)
   }
 
   return (
