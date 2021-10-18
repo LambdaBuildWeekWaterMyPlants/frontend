@@ -21,7 +21,8 @@ export const signUpSchema = yup.object().shape({
   password: password,
 })
 
-export const logInSchema = yup.object().shape({
+// import { loginSchema as schema } from '../validation'
+export const loginSchema = yup.object().shape({
   username: username,
   password: password,
 })
