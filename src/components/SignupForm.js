@@ -55,20 +55,31 @@ export default function SignUp({ submit }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Username
-        <input type='text' value={values.username} onChange={handleChange} />
-      </label>
+      <h2>Sign Up</h2>
 
-      <label>
-        Phone Number
-        <input type='tel' value={values.tel} onChange={handleChange} />
-      </label>
+      <div>
+        <label>
+          Username
+          <input type='text' name='username' value={values.username} onChange={handleChange} />
+        </label>
+        <span>{errors.username}</span>
+      </div>
 
-      <label>
-        Password
-        <input type='password' value={values.password} onChange={handleChange} />
-      </label>
+      <div>
+        <label>
+          Phone Number
+          <input type='tel' name='tel' value={values.tel} onChange={handleChange} />
+        </label>
+        <span>{errors.tel}</span>
+      </div>
+
+      <div>
+        <label>
+          Password
+          <input type='password' name='password' value={values.password} onChange={handleChange} />
+        </label>
+        <span>{errors.password}</span>
+      </div>
 
       <button disabled={disabled}>Signup</button>
     </form>
