@@ -1,4 +1,12 @@
+import { useState } from 'react'
+
+const initialValues = { username: '', tel: '', password: '' }
+const initialErrors = { username: '', tel: '', password: '' }
+
 export default function SignUp() {
+  const [values, setValues] = useState(initialValues)
+  const [errors, setErrors] = useState(initialErrors)
+
   return (
     <form>
       <label>
