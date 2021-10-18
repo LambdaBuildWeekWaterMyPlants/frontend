@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import * as yup from 'yup'
-import { signUpSchema as schema } from '../validation/signupSchema'
+import { signUpSchema as schema } from '../validation'
 
 const initialValues = { username: '', tel: '', password: '' }
 const initialErrors = { username: '', tel: '', password: '' }
