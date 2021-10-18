@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 
+// TODO: find a better way to validate a phone number
 export const schema = yup.object().shape({
   username: yup
     .string()

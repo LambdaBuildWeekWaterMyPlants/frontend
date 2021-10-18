@@ -5,7 +5,8 @@ import { schema } from '../validation/signupSchema'
 const initialValues = { username: '', tel: '', password: '' }
 const initialErrors = { username: '', tel: '', password: '' }
 
-export default function SignUp({ submit }) {
+// receives a callback function in props names submit
+export default function SignUpForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
