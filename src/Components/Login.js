@@ -7,14 +7,13 @@ export default function Login(props){
     const {
         values,
         disabled,
-        change,
         submit,
         errors,
     } = props;
 
     const onChange = evt => {
         const { name, value} = evt.target;
-        change(value);
+        values((prev) => ({ ...prev, [name]: value }))
         validate(name, value)
       }
       
