@@ -56,24 +56,26 @@ export default function LoginForm({ submit }) {
   }, [values])
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='loginForm' onSubmit={handleSubmit}>
       <h2>Sign In</h2>
 
-      <div>
-        <label>
+      <div className='form-group'>
+        <label className='username'>
           Username
-          <input type='text' />
+          <input type='text' name='username' value={values.username} onChange={handleChange} />
         </label>
+        <span className='error'>{errors.username}</span>
       </div>
 
-      <div>
-        <label>
+      <div className='form-group'>
+        <label className='password'>
           Password
-          <input type='password' />
+          <input type='password' name='password' value={values.password} onChange={handleChange} />
         </label>
+        <span className='error'>{errors.password}</span>
       </div>
 
-      <button>Login</button>
+      <button disabled={disabled}>Login</button>
     </form>
   )
 }
