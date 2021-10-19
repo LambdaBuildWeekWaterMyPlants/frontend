@@ -24,6 +24,17 @@ export default function LoginForm({ submit }) {
       })
   }
 
+  // deconstructs event
+  // validates input
+  // updates values state
+  const handleChange = (event) => {
+    const { name, value } = event.target
+
+    validate(name, value)
+
+    setValues((prev) => ({ ...prev, [name]: value }))
+  }
+
   const handleSubmit = (event) => {}
 
   return (
