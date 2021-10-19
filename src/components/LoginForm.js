@@ -35,7 +35,25 @@ export default function LoginForm({ submit }) {
     setValues((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (event) => {}
+  // construct user object from form values
+  // pass newUser to callback function in props
+  // clears values state
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    const user = {
+      username: values.username.trim(),
+      password: values.password,
+    }
+
+    submit(user)
+    setValues(() => initialValues)
+  }
+
+  // enables button when validation passes
+  useEffect(() => {
+    schema.isValid(values).then((valid) => setDisabled(() => !valid))
+  }, [values])
 
   return (
     <form onSubmit={handleSubmit}>
