@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom'
 import { config } from '../config'
 
+import Logout from './Logout'
 const Login = () => <Link to='/login'>Login</Link>
 const Signup = () => <Link to='/signup'>Signup</Link>
 const Update = () => <Link to='/update'>Update</Link>
 
 export default function Header({ user }) {
+  const handleLogout = () => console.log('handleLogout => src/components/Header')
+
   return (
     <header>
       <Link to='/'>
@@ -17,11 +20,14 @@ export default function Header({ user }) {
       <nav>
         {user ? (
           <>
-            <Login />
             <Update />
+            <Logout click={handleLogout} />
           </>
         ) : (
-          <Signup />
+          <>
+            <Login />
+            <Signup />
+          </>
         )}
       </nav>
     </header>

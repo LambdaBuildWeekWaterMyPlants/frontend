@@ -14,10 +14,10 @@ const MainContainer = styled.main`
   width: 80%;
 `
 
-export default function Layout({ children }) {
+export default function Layout({ user, children }) {
   return (
     <AppContainer>
-      <Header />
+      <Header user={user} />
       <MainContainer>{children}</MainContainer>
       <Footer />
     </AppContainer>

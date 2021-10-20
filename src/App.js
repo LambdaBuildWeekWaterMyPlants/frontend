@@ -13,7 +13,7 @@ export default function App() {
   return (
     <Layout user={user}>
       <Route exact path='/'>
-        <Home />
+        <Home user={user} />
       </Route>
       <Route path='/login'>
         <Login />
