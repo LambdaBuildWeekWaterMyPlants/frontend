@@ -7,6 +7,7 @@ export const StyledFormCard = styled.section`
   height: 50vh;
   padding: 3% 5%;
   width: 60%;
+  margin: 2%;
 
   background: ${({ theme }) => theme.lighterGray};
   filter: ${({ theme }) => theme.cardShadow};

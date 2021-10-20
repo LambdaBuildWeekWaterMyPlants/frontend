@@ -1,15 +1,24 @@
+import { useState } from 'react'
 import { StyledCard } from './StyledCard'
-
-/* plant-objects structure:
-{
-  plant_id: string, ???
-  nickname: string,
-  species: string,
-  h2o_frequency: string
-}
-*/
+import CreatePlantCard from './CreatePlantCard'
 
 export default function PlantCard({ nickname, species, h2oFrequency }) {
+  const [editing, setEditing] = useState(false)
+
+  const handleDelete = () => null
+
+  const toggleEdit = () => setEditing((prev) => !prev)
+
+  if (editing) {
+    return (
+      <CreatePlantCard
+        initial={{ nickname, species, h2oFrequency }}
+        cancel={toggleEdit}
+        submit={null}
+      />
+    )
+  }
+
   return (
     <StyledCard>
       <div className='content'>
@@ -27,8 +36,12 @@ export default function PlantCard({ nickname, species, h2oFrequency }) {
       </div>
 
       <div className='controls'>
-        <button className='edit'>Edit</button>
-        <button className='delete'>Delete</button>
+        <button className='edit' onClick={toggleEdit}>
+          Edit
+        </button>
+        <button className='delete' onClick={handleDelete}>
+          Delete
+        </button>
       </div>
     </StyledCard>
   )

@@ -5,6 +5,10 @@ const PageContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
+  h2 {
+    font-size: 1.8rem;
+  }
+
   ${({ centered }) => (centered ? `align-items: center; flex-grow: 1;` : null)}
 `
 

@@ -4,16 +4,8 @@ import PlantCard from '../components/PlantCard'
 import CreatePlantCard from '../components/CreatePlantCard'
 import { StyledCreateButton } from '../components/StyledCreateButton'
 
-/* plant-objects structure:
-{
-  plant_id: string, ???
-  nickname: string,
-  species: string,
-  h2o_frequency: string
-}
-*/
-
 // test plant for display
+// can delete, just used for styling
 const testPlant = {
   id: 1,
   nickname: 'Test Plant',
@@ -27,7 +19,8 @@ export default function PlantsList() {
 
   // setPlants using axios
 
-  // simple function that camelCases data received from server
+  // simple helper function that camelCases data received from server
+  // e.x. setPlants(filterData(res.data))
   const filterData = (data) => ({
     id: data.id,
     nickname: data.nickname,
@@ -35,9 +28,10 @@ export default function PlantsList() {
     h2oFrequency: data.h2o_frequency,
   })
 
-  // simulates update plants state using data from axios
+  // simulates updating plants state using data from axios
+  // can delete, used for styling
   useEffect(() => {
-    setPlants((prev) => [...prev, filterData(testPlant)])
+    setPlants((prev) => [...prev, filterData(testPlant), filterData(testPlant)])
   }, [])
 
   const toggleClicked = () => setCreateButtonClicked((prev) => !prev)
@@ -49,7 +43,7 @@ export default function PlantsList() {
       {createButtonClicked ? (
         <CreatePlantCard cancel={toggleClicked} />
       ) : (
-        <StyledCreateButton onClick={toggleClicked}>Create Card</StyledCreateButton>
+        <StyledCreateButton onClick={toggleClicked}>Create Plant</StyledCreateButton>
       )}
 
       {plants.map((plant) => (

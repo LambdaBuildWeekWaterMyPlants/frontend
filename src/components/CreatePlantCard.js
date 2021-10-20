@@ -15,8 +15,9 @@ import { StyledFormCard } from './StyledFormCard'
 const initialValues = { nickname: '', species: '', h2oFrequency: '' }
 const initialErrors = { nickname: '', species: '', h2oFrequency: '' }
 
-export default function CreatePlantCard({ cancel, submit }) {
-  const [values, setValues] = useState(initialValues)
+// receives initial if editing an existing plant
+export default function CreatePlantCard({ initial = null, cancel, submit }) {
+  const [values, setValues] = useState(initial || initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
 
@@ -48,6 +49,8 @@ export default function CreatePlantCard({ cancel, submit }) {
     event.preventDefault()
 
     // axios.put goes here
+
+    // submit() <- not necessary?
   }
 
   // enables button when validation passes
