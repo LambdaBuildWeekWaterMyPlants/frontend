@@ -1,35 +1,64 @@
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import Logout from './Logout'
 import { config } from '../config'
 
-import Logout from './Logout'
-const Login = () => <Link to='/login'>Login</Link>
-const Signup = () => <Link to='/signup'>Signup</Link>
-const Update = () => <Link to='/update'>Update</Link>
+const HeaderContainer = styled.header`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 2% 0;
+  width: 100vw;
+
+  div {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+
+    h1 {
+      font-size: 2.4rem;
+    }
+
+    nav {
+      display: flex;
+      font-size: 1.2rem;
+      justify-content: space-around;
+      width: 25%;
+
+      * {
+        transition: 2ms;
+      }
+    }
+  }
+`
 
 export default function Header({ user }) {
   const handleLogout = () => console.log('handleLogout => src/components/Header')
 
   return (
-    <header>
-      <Link to='/'>
-        <h1>{config.title}</h1>
-      </Link>
+    <HeaderContainer>
+      <div>
+        <Link to='/'>
+          <h1>{config.title}</h1>
+        </Link>
 
-      {/* Shows Login and Update when user prop exists */}
-      {/* Shows Signup when user prop doesn't exist */}
-      <nav>
-        {user ? (
-          <>
-            <Update />
-            <Logout click={handleLogout} />
-          </>
-        ) : (
-          <>
-            <Login />
-            <Signup />
-          </>
-        )}
-      </nav>
-    </header>
+        {/* Shows Login and Update when user prop exists */}
+        {/* Shows Signup when user prop doesn't exist */}
+        <nav>
+          {user ? (
+            <>
+              <Link to='/update'>Update</Link>
+              <Logout click={handleLogout} />
+            </>
+          ) : (
+            <>
+              <Link to='/login'>Login</Link>
+              <Link to='/signup'>Signup</Link>
+            </>
+          )}
+        </nav>
+      </div>
+    </HeaderContainer>
   )
 }
