@@ -1,12 +1,28 @@
+import { Link } from 'react-router-dom'
 import { config } from '../config'
 
-export default function Header() {
+const Login = () => <Link to='/login'>Login</Link>
+const Signup = () => <Link to='/signup'>Signup</Link>
+const Update = () => <Link to='/update'>Update</Link>
+
+export default function Header({ user }) {
   return (
     <header>
-      <h1>{config.title}</h1>
+      <Link to='/'>
+        <h1>{config.title}</h1>
+      </Link>
 
+      {/* Shows Login and Update when user prop exists */}
+      {/* Shows Signup when user prop doesn't exist */}
       <nav>
-        <input type='text' />
+        {user ? (
+          <>
+            <Login />
+            <Update />
+          </>
+        ) : (
+          <Signup />
+        )}
       </nav>
     </header>
   )
