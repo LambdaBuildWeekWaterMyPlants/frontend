@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import { loginSchema as schema } from '../validation'
 import { StyledForm } from './StyledForm'
+import axios from 'axios'
 
 const initialValues = { username: '', password: '' }
 const initialErrors = { username: '', password: '' }
@@ -42,13 +43,17 @@ export default function LoginForm({ submit }) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    const user = {
-      username: values.username.trim(),
-      password: values.password,
-    }
+    // const user = {
+    //   username: values.username.trim(),
+    //   password: values.password,
+    // }
 
-    submit(user)
-    setValues(() => initialValues)
+    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/login', values)
+         .then((resp) => console.log(resp))
+         .catch((err) => console.log(err));
+
+    // submit(user)
+    // setValues(() => initialValues)
   }
 
   // enables button when validation passes

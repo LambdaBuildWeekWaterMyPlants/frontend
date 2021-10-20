@@ -12,9 +12,6 @@ export default function App() {
 
   return (
     <Layout user={user}>
-      <Route exact path='/'>
-        <Home user={user} />
-      </Route>
       <Route path='/login'>
         <Login />
       </Route>
@@ -23,6 +20,9 @@ export default function App() {
       </Route>
       <Route path='/update'>
         <Update />
+      </Route>
+      <Route exact path='/'>
+        <Home user={user} />
       </Route>
     </Layout>
   )

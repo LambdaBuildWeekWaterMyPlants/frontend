@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import { signUpSchema as schema } from '../validation'
 import { StyledForm } from './StyledForm'
+import axios from 'axios'
+import { useHistory } from 'react-router'
 
 const initialValues = { username: '', tel: '', password: '' }
 const initialErrors = { username: '', tel: '', password: '' }
@@ -11,6 +13,7 @@ export default function SignUpForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
+  const {push} = useHistory();
 
   // validates input using yup and schema
   const validate = (name, value) => {
@@ -41,15 +44,25 @@ export default function SignUpForm({ submit }) {
   // clears values state
   const handleSubmit = (event) => {
     event.preventDefault()
-
     const newUser = {
       username: values.username.trim(),
       tel: values.tel,
       password: values.password,
     }
+    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/register', newUser)
+          .then((resp) => {
+            push('/login');
+          })
+          .catch((err) => console.log(err))
 
-    submit(newUser)
-    setValues(() => initialValues)
+
+
+
+
+    
+
+    // submit(newUser)
+    // setValues(() => initialValues)
   }
 
   // enables button when validation passes
