@@ -5,7 +5,7 @@ export default function Login() {
   const handleSubmit = (data) => console.log(data)
 
   return (
-    <Page centered>
+    <Page>
       <LoginForm submit={handleSubmit} />
     </Page>
   )

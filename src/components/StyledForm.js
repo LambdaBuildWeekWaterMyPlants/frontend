@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const StyledForm = styled.form`
   width: 50%;
   padding: 2%;
+  margin-top: 5%;
 
   h2 {
     font-size: 1.8rem;

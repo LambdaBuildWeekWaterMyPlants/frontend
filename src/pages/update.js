@@ -5,7 +5,7 @@ export default function Update() {
   const handleSubmit = (data) => console.log(data)
 
   return (
-    <Page centered>
+    <Page>
       <UpdateForm submit={handleSubmit} />
     </Page>
   )
