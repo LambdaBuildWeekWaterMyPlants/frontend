@@ -6,12 +6,12 @@ import { StyledCreateButton } from '../components/StyledCreateButton'
 
 // test plant for display
 // can delete, just used for styling
-const testPlant = {
-  id: 1,
+const testPlant = (id) => ({
+  id: id,
   nickname: 'Test Plant',
   species: 'Test Species',
   h2o_frequency: 'twice daily',
-}
+})
 
 export default function PlantsList() {
   const [plants, setPlants] = useState([]) // I assume this will be an array of plant-objects
@@ -31,7 +31,7 @@ export default function PlantsList() {
   // simulates updating plants state using data from axios
   // can delete, used for styling
   useEffect(() => {
-    setPlants((prev) => [...prev, filterData(testPlant), filterData(testPlant)])
+    setPlants((prev) => [...prev, filterData(testPlant(1)), filterData(testPlant(2))])
   }, [])
 
   const toggleClicked = () => setCreateButtonClicked((prev) => !prev)

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import PrivateRoute from './components/PrivateRoute'
@@ -10,8 +9,6 @@ import PlantsList from './pages/plants-list'
 import Update from './pages/update'
 
 export default function App() {
-  const [user, setUser] = useState(null)
-
   return (
     <Layout>
       <Route path='/login'>

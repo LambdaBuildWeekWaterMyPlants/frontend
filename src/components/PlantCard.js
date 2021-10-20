@@ -2,17 +2,20 @@ import { useState } from 'react'
 import { StyledCard } from './StyledCard'
 import CreatePlantCard from './CreatePlantCard'
 
-export default function PlantCard({ nickname, species, h2oFrequency }) {
+export default function PlantCard({ id, nickname, species, h2oFrequency }) {
   const [editing, setEditing] = useState(false)
 
-  const handleDelete = () => null
+  // axios.delete() or something goes here
+  const handleDelete = () => {
+    return null
+  }
 
   const toggleEdit = () => setEditing((prev) => !prev)
 
   if (editing) {
     return (
       <CreatePlantCard
-        initial={{ nickname, species, h2oFrequency }}
+        initial={{ id, nickname, species, h2oFrequency }}
         cancel={toggleEdit}
         submit={null}
       />

@@ -3,15 +3,6 @@ import * as yup from 'yup'
 import { createPlantSchema as schema } from '../validation'
 import { StyledFormCard } from './StyledFormCard'
 
-/* plant-objects structure:
-{
-  plant_id: string, ???
-  nickname: string,
-  species: string,
-  h2o_frequency: string
-}
-*/
-
 const initialValues = { nickname: '', species: '', h2oFrequency: '' }
 const initialErrors = { nickname: '', species: '', h2oFrequency: '' }
 
@@ -48,9 +39,9 @@ export default function CreatePlantCard({ initial = null, cancel, submit }) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    // axios.put goes here
-
-    // submit() <- not necessary?
+    // axios.put or something goes here
+    // if initial.id exists -> plant already exists so update using initial.id
+    // else -> plant is new so create new one
   }
 
   // enables button when validation passes
