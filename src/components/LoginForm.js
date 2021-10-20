@@ -6,7 +6,7 @@ import { StyledForm } from './StyledForm'
 const initialValues = { username: '', password: '' }
 const initialErrors = { username: '', password: '' }
 
-// receives a callback function in props names submit
+// receives a callback function in props named submit
 export default function LoginForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)

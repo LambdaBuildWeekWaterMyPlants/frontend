@@ -1,5 +1,12 @@
 import Page from '../components/Page'
+import UpdateForm from '../components/UpdateForm'
 
 export default function Update() {
-  return <Page centered>{/* <Update /> */}</Page> // TODO: create Update form
+  const handleSubmit = (data) => console.log(data)
+
+  return (
+    <Page centered>
+      <UpdateForm submit={handleSubmit} />
+    </Page>
+  )
 }

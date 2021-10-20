@@ -58,5 +58,11 @@ export const StyledForm = styled.form`
     &:hover {
       background: ${({ theme }) => theme.darkGreen};
     }
+
+    &:disabled {
+      cursor: default;
+
+      background: ${({ theme }) => theme.mediumGray};
+    }
   }
 `

@@ -27,5 +27,11 @@ export const loginSchema = yup.object().shape({
   password: password,
 })
 
-export const updateTelSchema = yup.object().shape({ tel: tel })
-export const updatePasswordSchema = yup.object().shape({ password: password })
+export const updateSchema = yup.object().shape({
+  tel: tel,
+  password: password,
+})
+
+export const confirmSchema = yup.object().shape({
+  password: password,
+})
