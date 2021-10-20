@@ -33,7 +33,7 @@ const HeaderContainer = styled.header`
   }
 `
 
-export default function Header({ user }) {
+export default function Header() {
   const handleLogout = () => console.log('handleLogout => src/components/Header')
 
   return (
@@ -46,7 +46,7 @@ export default function Header({ user }) {
         {/* Shows Login and Update when user prop exists */}
         {/* Shows Signup when user prop doesn't exist */}
         <nav>
-          {user ? (
+          {true ? ( // TODO: create condition for showing correct nav items
             <>
               <Link to='/update'>Update</Link>
               <Logout click={handleLogout} />

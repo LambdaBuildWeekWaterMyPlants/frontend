@@ -12,7 +12,7 @@ export default function App() {
   const [user, setUser] = useState(null)
 
   return (
-    <Layout user={user}>
+    <Layout>
       <Route path='/login'>
         <Login />
       </Route>
@@ -23,7 +23,7 @@ export default function App() {
         <Update />
       </PrivateRoute>
       <Route exact path='/'>
-        <Home user={user} />
+        <Home />
       </Route>
     </Layout>
   )
