@@ -6,7 +6,7 @@ const username = yup
   .required('Username is required')
   .min(4, 'Username must be a least 4 characters long')
 
-const tel = yup
+const phoneNumber = yup
   .string()
   .required('Phone number is required')
   .test('len', 'Must be a valid 10 digit number', (val) => val.length === 10)
@@ -15,7 +15,7 @@ const password = yup.string().required('Password is required')
 
 export const signUpSchema = yup.object().shape({
   username: username,
-  tel: tel,
+  phoneNumber: phoneNumber,
   password: password,
 })
 
@@ -25,7 +25,7 @@ export const loginSchema = yup.object().shape({
 })
 
 export const updateSchema = yup.object().shape({
-  tel: tel,
+  phoneNumber: phoneNumber,
   password: password,
 })
 

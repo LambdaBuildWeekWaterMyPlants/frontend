@@ -31,12 +31,12 @@ export default function LoginForm({ submit }) {
   // deconstructs event
   // validates input
   // updates values state
-  const handleChange = (event) => {
-    const { name, value } = event.target
+  const handleChange = (e) => {
+    const { name, value } = e.target
 
     validate(name, value)
 
-    setValues((prev) => ({ ...prev, [name]: value }))
+    setValues({...values, [e.target.name]: e.target.value})
   }
 
   // construct user object from form values
@@ -50,10 +50,11 @@ export default function LoginForm({ submit }) {
       password: values.password,
     }
 
-    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/login', user)
+    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/login', values)
          .then((resp) => {
+           console.log(resp.data)
            localStorage.getItem("token", resp)
-            push('/')
+            push('/plants-list')
          })
          .catch((err) => console.log(err));
 

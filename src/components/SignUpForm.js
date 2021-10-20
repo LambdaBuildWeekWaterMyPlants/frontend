@@ -5,8 +5,8 @@ import { StyledForm } from './StyledForm'
 import axios from 'axios'
 import { useHistory } from 'react-router'
 
-const initialValues = { username: '', tel: '', password: '' }
-const initialErrors = { username: '', tel: '', password: '' }
+const initialValues = { username: '', phoneNumber: '', password: '' }
+const initialErrors = { username: '', phoneNumber: '', password: '' }
 
 // receives a callback function in props named submit
 export default function SignUpForm({ submit }) {
@@ -31,33 +31,29 @@ export default function SignUpForm({ submit }) {
   // deconstructs event
   // validates input
   // updates values state
-  const handleChange = (event) => {
-    const { name, value } = event.target
+  const handleChange = (e) => {
+    const { name, value } = e.target
 
     validate(name, value)
 
-    setValues((prev) => ({ ...prev, [name]: value }))
+    setValues({...values, [e.target.name]: e.target.value});
   }
 
   // construct newUser object from form values
   // pass newUser to callback function in props
   // clears values state
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
     // const newUser = {
     //   username: values.username.trim(),
     //   tel: values.tel,
     //   password: values.password,
     // }
     axios
-      .post('https://water-myplants-backend.herokuapp.com/api/auth/register', {
-        user: {
-          username: values.username.trim(),
-          tel: values.tel,
-          password: values.password,
-        },
+      .post('https://water-myplants-backend.herokuapp.com/api/auth/register', values)
+      .then((resp) => {
+        push('/login')
       })
-      .then((resp) => {})
       .catch((err) => console.log(err))
 
     // submit(newUser)
@@ -86,10 +82,10 @@ export default function SignUpForm({ submit }) {
       <div className='form-group'>
         <label>
           Phone
-          <input type='tel' name='tel' value={values.tel} onChange={handleChange} />
+          <input type='phoneNumber' name='phoneNumber' value={values.phoneNumber} onChange={handleChange} />
         </label>
         <div className='error'>
-          <span>{errors.tel}</span>
+          <span>{errors.phoneNumber}</span>
         </div>
       </div>
 

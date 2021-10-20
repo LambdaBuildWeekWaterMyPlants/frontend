@@ -17,9 +17,9 @@ export default function App() {
       <Route path='/signup'>
         <Signup />
       </Route>
-      <Route path='/plants-list'>
+      <PrivateRoute path='/plants-list'>
         <PlantsList />
-      </Route>
+      </PrivateRoute>
       <PrivateRoute path='/update'>
         <Update />
       </PrivateRoute>

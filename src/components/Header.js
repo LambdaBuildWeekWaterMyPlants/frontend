@@ -46,17 +46,14 @@ export default function Header() {
         {/* Shows Login and Update when user prop exists */}
         {/* Shows Signup when user prop doesn't exist */}
         <nav>
-          {true ? ( // TODO: create condition for showing correct nav items
-            <>
-              <Link to='/update'>Update</Link>
-              <Logout click={handleLogout} />
-            </>
-          ) : (
-            <>
-              <Link to='/login'>Login</Link>
-              <Link to='/signup'>Signup</Link>
-            </>
-          )}
+          <Link to='/login'>Login</Link>
+          <Link to='/signup'>Signup</Link>
+
+
+          <Link to='/update'>Update</Link>
+          
+          <Logout click={handleLogout} />    
+      
         </nav>
       </div>
     </HeaderContainer>
