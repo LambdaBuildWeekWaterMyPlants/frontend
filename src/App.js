@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Route } from 'react-router-dom'
 import Layout from './components/Layout'
+import PrivateRoute from './components/PrivateRoute'
 
 import Home from './pages/home'
 import Login from './pages/login'
@@ -18,9 +19,9 @@ export default function App() {
       <Route path='/signup'>
         <Signup />
       </Route>
-      <Route path='/update'>
+      <PrivateRoute path='/update'>
         <Update />
-      </Route>
+      </PrivateRoute>
       <Route exact path='/'>
         <Home user={user} />
       </Route>

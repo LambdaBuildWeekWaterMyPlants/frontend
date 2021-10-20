@@ -3,6 +3,7 @@ import * as yup from 'yup'
 import { loginSchema as schema } from '../validation'
 import { StyledForm } from './StyledForm'
 import axios from 'axios'
+import { useHistory } from 'react-router'
 
 const initialValues = { username: '', password: '' }
 const initialErrors = { username: '', password: '' }
@@ -12,6 +13,7 @@ export default function LoginForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
+  const {push} = useHistory();
 
   // validates input using yup and schema
   const validate = (name, value) => {
@@ -43,13 +45,16 @@ export default function LoginForm({ submit }) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    // const user = {
-    //   username: values.username.trim(),
-    //   password: values.password,
-    // }
+    const user = {
+      username: values.username.trim(),
+      password: values.password,
+    }
 
-    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/login', values)
-         .then((resp) => console.log(resp))
+    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/login', user)
+         .then((resp) => {
+           localStorage.getItem("token", resp)
+            push('/')
+         })
          .catch((err) => console.log(err));
 
     // submit(user)

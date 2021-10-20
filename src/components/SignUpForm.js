@@ -44,22 +44,21 @@ export default function SignUpForm({ submit }) {
   // clears values state
   const handleSubmit = (event) => {
     event.preventDefault()
-    const newUser = {
-      username: values.username.trim(),
-      tel: values.tel,
-      password: values.password,
-    }
-    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/register', newUser)
+    // const newUser = {
+    //   username: values.username.trim(),
+    //   tel: values.tel,
+    //   password: values.password,
+    // }
+    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/register', {
+          user:{
+            username:values.username.trim(),
+            tel: values.tel,
+            password: values.password
+          }
+    })
           .then((resp) => {
-            push('/login');
           })
           .catch((err) => console.log(err))
-
-
-
-
-
-    
 
     // submit(newUser)
     // setValues(() => initialValues)
