@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 const PageContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   ${({ centered }) => (centered ? `align-items: center; flex-grow: 1;` : null)}
 `

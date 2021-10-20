@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute'
 import Home from './pages/home'
 import Login from './pages/login'
 import Signup from './pages/signup'
+import PlantsList from './pages/plants-list'
 import Update from './pages/update'
 
 export default function App() {
@@ -18,6 +19,9 @@ export default function App() {
       </Route>
       <Route path='/signup'>
         <Signup />
+      </Route>
+      <Route path='/plants-list'>
+        <PlantsList />
       </Route>
       <PrivateRoute path='/update'>
         <Update />
