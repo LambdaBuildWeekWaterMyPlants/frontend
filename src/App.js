@@ -17,12 +17,8 @@ export default function App() {
       <Route path='/signup'>
         <Signup />
       </Route>
-      <PrivateRoute path='/plants-list'>
-        <PlantsList />
-      </PrivateRoute>
-      <PrivateRoute path='/update'>
-        <Update />
-      </PrivateRoute>
+      <PrivateRoute path='/plants-list' component={PlantsList}/>
+      <PrivateRoute path='/update' component={Update}/>
       <Route exact path='/'>
         <Home />
       </Route>
