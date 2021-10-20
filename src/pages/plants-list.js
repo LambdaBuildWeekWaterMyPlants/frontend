@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Page from '../components/Page'
 import PlantCard from '../components/PlantCard'
 import CreatePlantCard from '../components/CreatePlantCard'
+import { StyledCreateButton } from '../components/StyledCreateButton'
 
 /* plant-objects structure:
 {
@@ -45,9 +46,11 @@ export default function PlantsList() {
     <Page>
       <h2>Plants</h2>
 
-      <button onClick={toggleClicked}>Create Card</button>
-
-      {createButtonClicked && <CreatePlantCard />}
+      {createButtonClicked ? (
+        <CreatePlantCard cancel={toggleClicked} />
+      ) : (
+        <StyledCreateButton onClick={toggleClicked}>Create Card</StyledCreateButton>
+      )}
 
       {plants.map((plant) => (
         <PlantCard key={plant.id} {...plant} />

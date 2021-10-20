@@ -4,6 +4,7 @@ export const StyledForm = styled.form`
   width: 50%;
   padding: 2%;
   margin-top: 5%;
+  transition: 2ms;
 
   h2 {
     font-size: 1.8rem;
@@ -51,7 +52,7 @@ export const StyledForm = styled.form`
     padding: 2%;
     font-size: 1.2rem;
     transition: 2ms;
-    border-radius: 2px;
+    border-radius: 5px;
 
     background: ${({ theme }) => theme.darkerGreen};
     color: ${({ theme }) => theme.lightGreen};

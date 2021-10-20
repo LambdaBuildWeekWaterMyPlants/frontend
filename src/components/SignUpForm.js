@@ -13,7 +13,7 @@ export default function SignUpForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
-  const {push} = useHistory();
+  const { push } = useHistory()
 
   // validates input using yup and schema
   const validate = (name, value) => {
@@ -49,16 +49,16 @@ export default function SignUpForm({ submit }) {
     //   tel: values.tel,
     //   password: values.password,
     // }
-    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/register', {
-          user:{
-            username:values.username.trim(),
-            tel: values.tel,
-            password: values.password
-          }
-    })
-          .then((resp) => {
-          })
-          .catch((err) => console.log(err))
+    axios
+      .post('https://water-myplants-backend.herokuapp.com/api/auth/register', {
+        user: {
+          username: values.username.trim(),
+          tel: values.tel,
+          password: values.password,
+        },
+      })
+      .then((resp) => {})
+      .catch((err) => console.log(err))
 
     // submit(newUser)
     // setValues(() => initialValues)

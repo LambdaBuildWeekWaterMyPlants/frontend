@@ -7,6 +7,7 @@ export const StyledCard = styled.section`
   height: 40vh;
   display: flex;
   flex-direction: column;
+  margin: 2%;
 
   background: ${({ theme }) => theme.lighterGray};
   filter: ${({ theme }) => theme.cardShadow};

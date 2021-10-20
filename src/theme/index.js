@@ -10,7 +10,9 @@ export const theme = {
   darkerGreen: '#15803d',
   darkGreen: '#14532d',
 
-  red: '#fa5252',
+  lightRed: '#fee2e2',
+  red: '#ef4444',
+  darkRed: '#b91c1c',
 
   cardShadow:
     'drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1))',
