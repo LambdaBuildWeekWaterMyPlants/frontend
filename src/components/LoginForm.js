@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import { loginSchema as schema } from '../validation'
+import { StyledForm } from './StyledForm'
 
 const initialValues = { username: '', password: '' }
 const initialErrors = { username: '', password: '' }
 
-// receives a callback function in props names submit
+// receives a callback function in props named submit
 export default function LoginForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
@@ -56,26 +57,30 @@ export default function LoginForm({ submit }) {
   }, [values])
 
   return (
-    <form className='loginForm' onSubmit={handleSubmit}>
-      <h2>Sign In</h2>
+    <StyledForm onSubmit={handleSubmit}>
+      <h2>Login</h2>
 
       <div className='form-group'>
-        <label className='username'>
+        <label>
           Username
           <input type='text' name='username' value={values.username} onChange={handleChange} />
         </label>
-        <span className='error'>{errors.username}</span>
+        <div className='error'>
+          <span>{errors.username}</span>
+        </div>
       </div>
 
       <div className='form-group'>
-        <label className='password'>
+        <label>
           Password
           <input type='password' name='password' value={values.password} onChange={handleChange} />
         </label>
-        <span className='error'>{errors.password}</span>
+        <div className='error'>
+          <span>{errors.password}</span>
+        </div>
       </div>
 
-      <button disabled={disabled}>Login</button>
-    </form>
+      <button disabled={disabled}>Submit</button>
+    </StyledForm>
   )
 }

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import * as yup from 'yup'
-import { signUpSchema as schema } from '../validation'
+import { updateSchema as schema } from '../validation'
 import { StyledForm } from './StyledForm'
 
-const initialValues = { username: '', tel: '', password: '' }
-const initialErrors = { username: '', tel: '', password: '' }
+const initialValues = { tel: '', password: '' }
+const initialErrors = { tel: '', password: '' }
 
 // receives a callback function in props named submit
-export default function SignUpForm({ submit }) {
+export default function UpdateForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
@@ -36,19 +36,18 @@ export default function SignUpForm({ submit }) {
     setValues((prev) => ({ ...prev, [name]: value }))
   }
 
-  // construct newUser object from form values
+  // construct user object from form values
   // pass newUser to callback function in props
   // clears values state
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    const newUser = {
+    const user = {
       username: values.username.trim(),
-      tel: values.tel,
       password: values.password,
     }
 
-    submit(newUser)
+    submit(user)
     setValues(() => initialValues)
   }
 
@@ -57,19 +56,12 @@ export default function SignUpForm({ submit }) {
     schema.isValid(values).then((valid) => setDisabled(() => !valid))
   }, [values])
 
+  // TODO: Get user object from state?
+  const user = 'TestUser'
+
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <h2>Sign Up</h2>
-
-      <div className='form-group'>
-        <label>
-          Username
-          <input type='text' name='username' value={values.username} onChange={handleChange} />
-        </label>
-        <div className='error'>
-          <span>{errors.username}</span>
-        </div>
-      </div>
+      <h2>Update {user}</h2>
 
       <div className='form-group'>
         <label>
