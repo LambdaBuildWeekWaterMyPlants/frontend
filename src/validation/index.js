@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import 'yup-phone-lite'
 
 const username = yup
   .string()
@@ -9,8 +8,8 @@ const username = yup
 
 const tel = yup
   .string()
-  .phone('US', 'Phone number must be valid phone number')
   .required('Phone number is required')
+  .test('len', 'Must be a valid 10 digit number', (val) => val.length === 10)
 
 const password = yup.string().required('Password is required')
 
