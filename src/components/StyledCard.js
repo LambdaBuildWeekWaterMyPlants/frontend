@@ -1,22 +1,58 @@
 import styled from 'styled-components'
 
 export const StyledCard = styled.section`
-  div.controls {
-    button.edit {
-    }
+  border-radius: 5px;
+  width: 60%;
+  padding: 3% 5%;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
 
-    button.delete {
-    }
-  }
+  background: ${({ theme }) => theme.lighterGray};
+  filter: ${({ theme }) => theme.cardShadow};
 
   div.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     h2 {
-      /* nickname */
+      font-size: 1.6rem;
     }
 
     div {
-      /* 2 divs, each with h3 and p */
-      /* one for each species and h2oFrequency */
+      margin-bottom: 5%;
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      p {
+        margin-top: 2%;
+      }
+    }
+  }
+
+  div.controls {
+    display: flex;
+    justify-content: flex-end;
+
+    * {
+      margin-left: 5%;
+      transition: 2ms;
+    }
+
+    button.edit {
+      &:hover {
+        color: ${({ theme }) => theme.darkerGreen};
+      }
+    }
+
+    button.delete {
+      &:hover {
+        color: ${({ theme }) => theme.red};
+      }
     }
   }
 `
