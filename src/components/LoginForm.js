@@ -57,7 +57,7 @@ export default function LoginForm({ submit }) {
   }, [values])
 
   return (
-    <StyledForm className='loginForm' onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <h2>Login</h2>
 
       <div className='form-group'>
