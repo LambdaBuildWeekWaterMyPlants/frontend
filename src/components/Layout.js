@@ -25,6 +25,8 @@ const AppContainer = styled.div`
 `
 
 const MainContainer = styled.main`
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   width: 70%;
 `

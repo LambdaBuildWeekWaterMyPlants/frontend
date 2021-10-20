@@ -3,8 +3,7 @@ import LoginForm from '../components/LoginForm'
 
 export default function Login() {
   return (
-    <Page>
-      <div>Login</div>
+    <Page centered>
       <LoginForm />
     </Page>
   )

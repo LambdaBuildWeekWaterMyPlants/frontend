@@ -1,9 +1,5 @@
 import Page from '../components/Page'
 
 export default function Update() {
-  return (
-    <Page>
-      <div>Update</div>
-    </Page>
-  )
+  return <Page centered>{/* <Update /> */}</Page> // TODO: create Update form
 }
