@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components'
 import App from './App'
 import { theme } from './theme'
 import './reset.css'
+import './index.css'
 
 ReactDOM.render(
   <Router>
