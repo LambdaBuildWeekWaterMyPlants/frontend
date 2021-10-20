@@ -1,3 +1,4 @@
+/* make inputs visible before they are styled */
 input {
   background: lightgray;
   border: 1px solid darkgray;
