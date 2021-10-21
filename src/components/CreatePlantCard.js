@@ -7,8 +7,8 @@ const initialValues = { nickname: '', species: '', h2oFrequency: '' }
 const initialErrors = { nickname: '', species: '', h2oFrequency: '' }
 
 // receives initial if editing an existing plant
-export default function CreatePlantCard({ initial = null, cancel, submit }) {
-  const [values, setValues] = useState(initial || initialValues)
+export default function CreatePlantCard({  cancel, submit }) {
+  const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
 

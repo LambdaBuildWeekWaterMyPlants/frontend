@@ -13,12 +13,12 @@ export default function PlantsList() {
 
   // simple helper function that camelCases data received from server
   // e.x. setPlants(filterData(res.data))
-  const filterData = (data) => ({
-    id: data.id,
-    nickname: data.nickname,
-    species: data.species,
-    h2oFrequency: data.h2o_frequency,
-  })
+  // const filterData = (data) => ({
+  //   id: data.id,
+  //   nickname: data.nickname,
+  //   species: data.species,
+  //   h2oFrequency: data.h2o_frequency,
+  // })
 
   useEffect(() => {
     axiosWithAuth()
@@ -45,7 +45,7 @@ export default function PlantsList() {
       )}
 
       {plants.map((plant) => (
-        <PlantCard key={plant.id} {...plant} />
+        <PlantCard key={plant.plant_id} {...plant} />
       ))}
     </Page>
   )
