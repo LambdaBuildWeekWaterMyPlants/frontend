@@ -13,7 +13,7 @@ export default function LoginForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
-  const {push} = useHistory();
+  const { push } = useHistory()
 
   // validates input using yup and schema
   const validate = (name, value) => {
@@ -31,12 +31,12 @@ export default function LoginForm({ submit }) {
   // deconstructs event
   // validates input
   // updates values state
-  const handleChange = (e) => {
-    const { name, value } = e.target
+  const handleChange = (event) => {
+    const { name, value } = event.target
 
     validate(name, value)
 
-    setValues({...values, [e.target.name]: e.target.value})
+    setValues({ ...values, [name]: value })
   }
 
   // construct user object from form values
@@ -50,15 +50,13 @@ export default function LoginForm({ submit }) {
       password: values.password,
     }
 
-    axios.post('https://water-myplants-backend.herokuapp.com/api/auth/login', values)
-         .then((resp) => {
-           localStorage.setItem("token", resp.data.token)
-            push('/plants-list')
-         })
-         .catch((err) => console.log(err));
-
-    // submit(user)
-    // setValues(() => initialValues)
+    axios
+      .post('https://water-myplants-backend.herokuapp.com/api/auth/login', user)
+      .then((resp) => {
+        localStorage.setItem('token', resp.data.token)
+        push('/plants-list')
+      })
+      .catch((err) => console.log(err))
   }
 
   // enables button when validation passes

@@ -22,31 +22,29 @@ export default function PlantsList() {
 
   useEffect(() => {
     axiosWithAuth()
-    .get('https://water-myplants-backend.herokuapp.com/api/plants')
-    .then((resp) => {
-        setPlants(resp.data);
-    })
-    .catch((err)=>{
-
-    })
+      .get('https://water-myplants-backend.herokuapp.com/api/plants')
+      .then((resp) => {
+        setPlants(resp.data)
+      })
+      .catch((err) => {})
     // setPlants((prev) => [...prev, filterData(testPlant(1)), filterData(testPlant(2))])
   }, [])
 
   const toggleClicked = () => setCreateButtonClicked((prev) => !prev)
+
+  const handleSubmit = () => console.log('clicked')
 
   return (
     <Page>
       <h2>Plants</h2>
 
       {createButtonClicked ? (
-        <CreatePlantCard cancel={toggleClicked} />
+        <CreatePlantCard cancel={toggleClicked} submit={handleSubmit} />
       ) : (
         <StyledCreateButton onClick={toggleClicked}>Create Plant</StyledCreateButton>
       )}
 
-      {plants.map((plant) => (
-        <PlantCard key={plant.plant_id} {...plant} />
-      ))}
+      {plants ? plants.map((plant) => <PlantCard key={plant.plant_id} {...plant} />) : ''}
     </Page>
   )
 }

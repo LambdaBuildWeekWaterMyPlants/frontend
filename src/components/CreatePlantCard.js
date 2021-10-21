@@ -9,11 +9,11 @@ const initialValues = { nickname: '', species: '', h2o_frequency: '' }
 const initialErrors = { nickname: '', species: '', h2o_frequency: '' }
 
 // receives initial if editing an existing plant
-export default function CreatePlantCard({  cancel, submit }) {
+export default function CreatePlantCard({ initial, cancel, submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
-  const {push} = useHistory();
+  const { push } = useHistory()
 
   // validates input using yup and schema
   const validate = (name, value) => {
@@ -31,37 +31,53 @@ export default function CreatePlantCard({  cancel, submit }) {
   // deconstructs event
   // validates input
   // updates values state
-  const handleChange = (e) => {
-    const { name, value } = e.target
+  const handleChange = (event) => {
+    const { name, value } = event.target
 
     validate(name, value)
 
-    setValues ({ ...values, [e.target.name]: e.target.value })
+    setValues({ ...values, [name]: value })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
 
+    if (initial !== undefined) {
       axiosWithAuth()
-      .post('https://water-myplants-backend.herokuapp.com/api/plants', values)
-      .then((resp) => {
+        .put(`https://water-myplants-backend.herokuapp.com/api/plants/${initial.plant_id}`, values)
+        .then((resp) => {
           console.log(resp)
           push('/plants-list')
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-
-
-    // axios.put or something goes here
-    // if initial.id exists -> plant already exists so update using initial.id
-    // else -> plant is new so create new one
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    } else {
+      axiosWithAuth()
+        .post('https://water-myplants-backend.herokuapp.com/api/plants/', values)
+        .then((resp) => {
+          console.log(resp)
+          push('/plants-list')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   }
 
   // enables button when validation passes
   useEffect(() => {
     schema.isValid(values).then((valid) => setDisabled(() => !valid))
   }, [values])
+
+  useEffect(() => {
+    if (initial)
+      setValues(() => ({
+        nickname: initial.nickname,
+        species: initial.species,
+        h2o_frequency: initial.h2o_frequency,
+      }))
+  }, [initial])
 
   return (
     <StyledFormCard>
