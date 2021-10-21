@@ -31,12 +31,12 @@ export default function CreatePlantCard({  cancel, submit }) {
   // deconstructs event
   // validates input
   // updates values state
-  const handleChange = (event) => {
-    const { name, value } = event.target
+  const handleChange = (e) => {
+    const { name, value } = e.target
 
     validate(name, value)
 
-    setValues((prev) => ({ ...prev, [name]: value }))
+    setValues ({ ...values, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = (event) => {
@@ -45,6 +45,7 @@ export default function CreatePlantCard({  cancel, submit }) {
       axiosWithAuth()
       .post('https://water-myplants-backend.herokuapp.com/api/plants', values)
       .then((resp) => {
+          console.log(resp)
           push('/plants-list')
       })
       .catch((err) => {
@@ -94,7 +95,7 @@ export default function CreatePlantCard({  cancel, submit }) {
             H2O Frequency
             <input
               type='text'
-              name='h2oFrequency'
+              name='h2o_frequency'
               value={values.h2o_frequency}
               onChange={handleChange}
             />
