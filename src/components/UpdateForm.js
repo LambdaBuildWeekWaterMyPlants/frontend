@@ -15,17 +15,17 @@ export default function UpdateForm({ submit }) {
   const [username, setUsername] = useState(null)
 
   // validates input using yup and schema
-  // const validate = (name, value) => {
-  //   yup
-  //     .reach(schema, name)
-  //     .validate(value)
-  //     .then(() => {
-  //       setErrors((prev) => ({ ...prev, [name]: '' }))
-  //     })
-  //     .catch((err) => {
-  //       setErrors((prev) => ({ ...prev, [name]: err.errors[0] }))
-  //     })
-  // }
+  const validate = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => {
+        setErrors((prev) => ({ ...prev, [name]: '' }))
+      })
+      .catch((err) => {
+        setErrors((prev) => ({ ...prev, [name]: err.errors[0] }))
+      })
+  }
 
   useEffect(() => {
     const localUsername = localStorage.getItem('username')
@@ -38,7 +38,7 @@ export default function UpdateForm({ submit }) {
   const handleChange = (event) => {
     const { name, value } = event.target
 
-    // validate(name, value)
+    validate(name, value)
 
     setValues((prev) => ({ ...prev, [name]: value }))
   }
@@ -50,6 +50,7 @@ export default function UpdateForm({ submit }) {
     event.preventDefault()
 
     const user = {
+      username: username,
       phoneNumber: values.phoneNumber,
       password: values.password,
     }
@@ -65,7 +66,7 @@ export default function UpdateForm({ submit }) {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <h2>Change {username}</h2>
+      <h2>Update {username}</h2>
 
       <div className='form-group'>
         <label>
