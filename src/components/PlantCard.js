@@ -3,7 +3,7 @@ import { StyledCard } from './StyledCard'
 import CreatePlantCard from './CreatePlantCard'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
-export default function PlantCard({ plant_id, nickname, species, h2o_frequency }) {
+export default function PlantCard({ plant_id, nickname, species, h2o_frequency, submit }) {
   const [editing, setEditing] = useState(false)
 
   const handleDelete = () => {
@@ -24,7 +24,7 @@ export default function PlantCard({ plant_id, nickname, species, h2o_frequency }
       <CreatePlantCard
         initial={{ plant_id, nickname, species, h2o_frequency }}
         cancel={toggleEdit}
-        submit={null}
+        submit={submit}
       />
     )
   }

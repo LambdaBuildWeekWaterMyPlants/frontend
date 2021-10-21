@@ -3,8 +3,8 @@ import * as yup from 'yup'
 import { updateSchema as schema } from '../validation'
 import { StyledForm } from './StyledForm'
 
-const initialValues = { tel: '', password: '' }
-const initialErrors = { tel: '', password: '' }
+const initialValues = { phoneNumber: '', password: '' }
+const initialErrors = { phoneNumber: '', password: '' }
 
 // receives a callback function in props named submit
 export default function UpdateForm({ submit }) {
@@ -12,18 +12,25 @@ export default function UpdateForm({ submit }) {
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
 
+  const [username, setUsername] = useState(null)
+
   // validates input using yup and schema
-  const validate = (name, value) => {
-    yup
-      .reach(schema, name)
-      .validate(value)
-      .then(() => {
-        setErrors((prev) => ({ ...prev, [name]: '' }))
-      })
-      .catch((err) => {
-        setErrors((prev) => ({ ...prev, [name]: err.errors[0] }))
-      })
-  }
+  // const validate = (name, value) => {
+  //   yup
+  //     .reach(schema, name)
+  //     .validate(value)
+  //     .then(() => {
+  //       setErrors((prev) => ({ ...prev, [name]: '' }))
+  //     })
+  //     .catch((err) => {
+  //       setErrors((prev) => ({ ...prev, [name]: err.errors[0] }))
+  //     })
+  // }
+
+  useEffect(() => {
+    const localUsername = localStorage.getItem('username')
+    setUsername(() => localUsername)
+  }, [])
 
   // deconstructs event
   // validates input
@@ -31,7 +38,7 @@ export default function UpdateForm({ submit }) {
   const handleChange = (event) => {
     const { name, value } = event.target
 
-    validate(name, value)
+    // validate(name, value)
 
     setValues((prev) => ({ ...prev, [name]: value }))
   }
@@ -43,7 +50,7 @@ export default function UpdateForm({ submit }) {
     event.preventDefault()
 
     const user = {
-      username: values.username.trim(),
+      phoneNumber: values.phoneNumber,
       password: values.password,
     }
 
@@ -56,20 +63,17 @@ export default function UpdateForm({ submit }) {
     schema.isValid(values).then((valid) => setDisabled(() => !valid))
   }, [values])
 
-  // TODO: Get user object from state?
-  const user = 'TestUser'
-
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <h2>Update {user}</h2>
+      <h2>Change {username}</h2>
 
       <div className='form-group'>
         <label>
           Phone
-          <input type='tel' name='tel' value={values.tel} onChange={handleChange} />
+          <input type='tel' name='phoneNumber' value={values.phoneNumber} onChange={handleChange} />
         </label>
         <div className='error'>
-          <span>{errors.tel}</span>
+          <span>{errors.phoneNumber}</span>
         </div>
       </div>
 

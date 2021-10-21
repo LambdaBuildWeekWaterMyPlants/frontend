@@ -34,7 +34,9 @@ export default function PlantsList() {
         <StyledCreateButton onClick={toggleClicked}>Create Plant</StyledCreateButton>
       )}
 
-      {plants ? plants.map((plant) => <PlantCard key={plant.plant_id} {...plant} />) : ''}
+      {plants
+        ? plants.map((plant) => <PlantCard key={plant.plant_id} {...plant} submit={handleSubmit} />)
+        : ''}
     </Page>
   )
 }

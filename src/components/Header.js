@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Logout from './Logout'
@@ -35,10 +36,19 @@ const HeaderContainer = styled.header`
 `
 
 export default function Header() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
   const { push } = useHistory()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) setIsAuthenticated(() => true)
+    else setIsAuthenticated(() => false)
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('username')
     push('/login')
   }
 
@@ -52,12 +62,17 @@ export default function Header() {
         {/* Shows Login and Update when user prop exists */}
         {/* Shows Signup when user prop doesn't exist */}
         <nav>
-          <Link to='/login'>Login</Link>
-          <Link to='/signup'>Signup</Link>
-
-          <Link to='/update'>Update</Link>
-
-          <Logout click={handleLogout} />
+          {isAuthenticated ? (
+            <>
+              <Link to='/update'>Update</Link>
+              <Logout click={handleLogout} />
+            </>
+          ) : (
+            <>
+              <Link to='/login'>Login</Link>
+              <Link to='/signup'>Signup</Link>
+            </>
+          )}
         </nav>
       </div>
     </HeaderContainer>
