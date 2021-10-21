@@ -52,7 +52,7 @@ export default function LoginForm({ submit }) {
 
     axios.post('https://water-myplants-backend.herokuapp.com/api/auth/login', values)
          .then((resp) => {
-           localStorage.setItem("token", resp)
+           localStorage.setItem("token", resp.data.token)
             push('/plants-list')
          })
          .catch((err) => console.log(err));

@@ -5,8 +5,8 @@ import { axiosWithAuth } from '../utils/axiosWithAuth'
 import { createPlantSchema as schema } from '../validation'
 import { StyledFormCard } from './StyledFormCard'
 
-const initialValues = { nickname: '', species: '', h2oFrequency: '' }
-const initialErrors = { nickname: '', species: '', h2oFrequency: '' }
+const initialValues = { nickname: '', species: '', h2o_frequency: '' }
+const initialErrors = { nickname: '', species: '', h2o_frequency: '' }
 
 // receives initial if editing an existing plant
 export default function CreatePlantCard({  cancel, submit }) {
@@ -95,12 +95,12 @@ export default function CreatePlantCard({  cancel, submit }) {
             <input
               type='text'
               name='h2oFrequency'
-              value={values.h2oFrequency}
+              value={values.h2o_frequency}
               onChange={handleChange}
             />
           </label>
           <div className='error'>
-            <span>{errors.h2oFrequency}</span>
+            <span>{errors.h2o_frequency}</span>
           </div>
         </div>
 
