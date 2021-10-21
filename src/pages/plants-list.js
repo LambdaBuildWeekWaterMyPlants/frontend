@@ -3,15 +3,7 @@ import Page from '../components/Page'
 import PlantCard from '../components/PlantCard'
 import CreatePlantCard from '../components/CreatePlantCard'
 import { StyledCreateButton } from '../components/StyledCreateButton'
-
-// test plant for display
-// can delete, just used for styling
-const testPlant = (id) => ({
-  id: id,
-  nickname: 'Test Plant',
-  species: 'Test Species',
-  h2o_frequency: 'twice daily',
-})
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 export default function PlantsList() {
   const [plants, setPlants] = useState([]) // I assume this will be an array of plant-objects
@@ -28,10 +20,16 @@ export default function PlantsList() {
     h2oFrequency: data.h2o_frequency,
   })
 
-  // simulates updating plants state using data from axios
-  // can delete, used for styling
   useEffect(() => {
-    setPlants((prev) => [...prev, filterData(testPlant(1)), filterData(testPlant(2))])
+    axiosWithAuth()
+    .get('https://water-myplants-backend.herokuapp.com/api/plants')
+    .then((resp) => {
+        setPlants(resp);
+    })
+    .catch((err)=>{
+
+    })
+    // setPlants((prev) => [...prev, filterData(testPlant(1)), filterData(testPlant(2))])
   }, [])
 
   const toggleClicked = () => setCreateButtonClicked((prev) => !prev)
