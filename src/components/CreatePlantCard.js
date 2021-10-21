@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
+import { useHistory } from 'react-router'
 import * as yup from 'yup'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 import { createPlantSchema as schema } from '../validation'
 import { StyledFormCard } from './StyledFormCard'
 
@@ -11,6 +13,7 @@ export default function CreatePlantCard({  cancel, submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
+  const {push} = useHistory();
 
   // validates input using yup and schema
   const validate = (name, value) => {
@@ -38,6 +41,16 @@ export default function CreatePlantCard({  cancel, submit }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+
+      axiosWithAuth()
+      .post('https://water-myplants-backend.herokuapp.com/api/plants', values)
+      .then((resp) => {
+          push('/plants-list')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
 
     // axios.put or something goes here
     // if initial.id exists -> plant already exists so update using initial.id
