@@ -63,6 +63,9 @@ export default function CreatePlantCard({ initial, cancel, submit }) {
           console.log(err)
         })
     }
+
+    submit()
+    cancel()
   }
 
   // enables button when validation passes
