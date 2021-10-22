@@ -56,6 +56,7 @@ export default function Header({ user = null }) {
         <nav>
           {loggedIn ? (
             <>
+              <Link to='/plants-list'>Plants</Link>
               <Link to='/update'>Update</Link>
               <Link onClick={handleLogout} to='/login'>
                 Logout
