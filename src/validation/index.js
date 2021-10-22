@@ -25,11 +25,8 @@ export const loginSchema = yup.object().shape({
 })
 
 export const updateSchema = yup.object().shape({
-  phoneNumber: yup
-    .string()
-    .notRequired()
-    .test('len', 'Must be a valid 10 digit number', (val) => val.length === 10 || val.length === 0),
-  password: yup.string(),
+  phoneNumber: phoneNumber,
+  password: password,
 })
 
 export const confirmSchema = yup.object().shape({

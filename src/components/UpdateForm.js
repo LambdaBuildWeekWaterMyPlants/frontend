@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import { updateSchema as schema } from '../validation'
 import { StyledForm } from './StyledForm'
+import { useHistory } from 'react-router-dom'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 const initialValues = { phoneNumber: '', password: '' }
 const initialErrors = { phoneNumber: '', password: '' }
@@ -11,8 +13,9 @@ export default function UpdateForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
+  const { push } = useHistory()
 
-  const [username, setUsername] = useState(null)
+  const [user, setUser] = useState(null)
 
   // validates input using yup and schema
   const validate = (name, value) => {
@@ -28,8 +31,13 @@ export default function UpdateForm({ submit }) {
   }
 
   useEffect(() => {
-    const localUsername = localStorage.getItem('username')
-    setUsername(() => localUsername)
+    const localUser = JSON.parse(localStorage.getItem('user'))
+    if (localUser) {
+      console.log(localUser)
+
+      setUser(() => localUser)
+      setValues((prev) => ({ ...prev, phoneNumber: localUser.phoneNumber }))
+    }
   }, [])
 
   // deconstructs event
@@ -49,13 +57,26 @@ export default function UpdateForm({ submit }) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    const user = {
-      username: username,
+    const updatedUser = {
+      username: user.username,
       phoneNumber: values.phoneNumber,
       password: values.password,
     }
 
-    submit(user)
+    axiosWithAuth()
+      .put(`https://water-myplants-backend.herokuapp.com/api/users/${user.user_id}/`, updatedUser)
+      .then((resp) => {
+        // localStorage.setItem('token', resp.data.token)
+
+        // localStorage.setItem('user', JSON.stringify(resp.data.user))
+
+        // console.log(resp.data)
+        // push('/plants-list')
+        console.log(resp)
+      })
+      .catch((err) => console.log(err))
+
+    submit(updatedUser)
     setValues(() => initialValues)
   }
 
@@ -64,9 +85,11 @@ export default function UpdateForm({ submit }) {
     schema.isValid(values).then((valid) => setDisabled(() => !valid))
   }, [values])
 
+  if (!user) return null
+
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <h2>Update {username}</h2>
+      <h2>Update {user.username}</h2>
 
       <div className='form-group'>
         <label>

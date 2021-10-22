@@ -13,7 +13,7 @@ export default function PlantsList() {
     axiosWithAuth()
       .get('https://water-myplants-backend.herokuapp.com/api/plants')
       .then((resp) => {
-        setPlants(resp.data)
+        setPlants(() => resp.data)
       })
       .catch((err) => {})
   }

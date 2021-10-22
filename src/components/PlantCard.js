@@ -15,6 +15,8 @@ export default function PlantCard({ plant_id, nickname, species, h2o_frequency, 
       .catch((err) => {
         console.log(err)
       })
+
+    submit()
   }
 
   const toggleEdit = () => setEditing((prev) => !prev)

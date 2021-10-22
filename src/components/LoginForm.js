@@ -54,7 +54,10 @@ export default function LoginForm({ submit }) {
       .post('https://water-myplants-backend.herokuapp.com/api/auth/login', user)
       .then((resp) => {
         localStorage.setItem('token', resp.data.token)
-        localStorage.setItem('username', user.username)
+
+        localStorage.setItem('user', JSON.stringify(resp.data.user))
+
+        console.log(resp.data)
         push('/plants-list')
       })
       .catch((err) => console.log(err))
