@@ -31,10 +31,10 @@ const MainContainer = styled.main`
   width: 70%;
 `
 
-export default function Layout({ user, children }) {
+export default function Layout({ user, get, children }) {
   return (
     <AppContainer>
-      <Header user={user} />
+      <Header user={user} get={get} />
       <MainContainer>{children}</MainContainer>
       <Footer />
     </AppContainer>

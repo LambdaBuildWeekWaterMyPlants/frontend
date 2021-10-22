@@ -1,32 +1,36 @@
 import { useState } from 'react'
 import { StyledCard } from './StyledCard'
-import CreatePlantCard from './CreatePlantCard'
+import EditPlantCard from './EditPlantCard'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
-export default function PlantCard({ plant_id, nickname, species, h2o_frequency, submit }) {
+export default function PlantCard({ plant_id, nickname, species, h2o_frequency, getPlants }) {
   const [editing, setEditing] = useState(false)
 
   const handleDelete = () => {
     axiosWithAuth()
       .delete(`https://water-myplants-backend.herokuapp.com/api/plants/${plant_id}`)
       .then((resp) => {
-        console.log(resp)
+        toggleEdit()
+        getPlants()
       })
       .catch((err) => {
         console.log(err)
       })
-
-    submit()
   }
 
   const toggleEdit = () => setEditing((prev) => !prev)
 
+  const handleSubmit = () => {
+    getPlants()
+    toggleEdit()
+  }
+
   if (editing) {
     return (
-      <CreatePlantCard
+      <EditPlantCard
         initial={{ plant_id, nickname, species, h2o_frequency }}
         cancel={toggleEdit}
-        submit={submit}
+        submit={handleSubmit}
       />
     )
   }

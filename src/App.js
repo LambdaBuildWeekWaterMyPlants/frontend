@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import PrivateRoute from './components/PrivateRoute'
@@ -10,12 +11,22 @@ import PlantsList from './pages/plants-list'
 import Update from './pages/update'
 
 export default function App() {
-  const user = useLocalUser()
+  const [getter, setGetter] = useState(false)
+
+  const user = useLocalUser(getter)
+
+  const handleGet = () => {
+    setGetter((prev) => !prev)
+  }
+
+  useEffect(() => {
+    setGetter((prev) => !prev)
+  }, [])
 
   return (
-    <Layout user={user}>
+    <Layout user={user} get={handleGet}>
       <Route path='/login'>
-        <Login />
+        <Login get={handleGet} />
       </Route>
       <Route path='/signup'>
         <Signup />

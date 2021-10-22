@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Logout from './Logout'
 import { config } from '../config'
-import { useHistory } from 'react-router-dom'
 
 const HeaderContainer = styled.header`
   align-items: center;
@@ -34,13 +32,10 @@ const HeaderContainer = styled.header`
   }
 `
 
-export default function Header({ user }) {
-  const { push } = useHistory()
-
+export default function Header({ user = null, get }) {
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    push('/login')
   }
 
   return (
@@ -51,10 +46,12 @@ export default function Header({ user }) {
         </Link>
 
         <nav>
-          {!!user ? (
+          {user ? (
             <>
               <Link to='/update'>Update</Link>
-              <Logout click={handleLogout} />
+              <Link onClick={handleLogout} to='/login'>
+                Logout
+              </Link>
             </>
           ) : (
             <>

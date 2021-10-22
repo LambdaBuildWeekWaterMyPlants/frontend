@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 
-export function useLocalUser() {
+export function useLocalUser(get) {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const localUser = JSON.parse(localStorage.getItem('user'))
-    if (localUser) setUser(localUser)
-  }, [])
+    const localUser = localStorage.getItem('user')
+    if (localUser) {
+      const parsedUser = JSON.parse(localUser)
+      setUser(() => parsedUser)
+    }
+  }, [get])
 
   return user
 }

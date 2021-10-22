@@ -25,7 +25,10 @@ export default function PlantsList() {
 
   const toggleClicked = () => setCreateButtonClicked((prev) => !prev)
 
-  const handleSubmit = () => getPlants()
+  const handleSubmit = () => {
+    getPlants()
+    toggleClicked()
+  }
 
   if (!user) return null
 
@@ -42,7 +45,7 @@ export default function PlantsList() {
       )}
 
       {plants
-        ? plants.map((plant) => <PlantCard key={plant.plant_id} {...plant} submit={handleSubmit} />)
+        ? plants.map((plant) => <PlantCard key={plant.plant_id} {...plant} getPlants={getPlants} />)
         : ''}
     </Page>
   )

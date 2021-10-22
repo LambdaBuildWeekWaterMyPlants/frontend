@@ -4,7 +4,7 @@ import axios from 'axios'
 import Page from '../components/Page'
 import LoginForm from '../components/LoginForm'
 
-export default function Login() {
+export default function Login({ get }) {
   const [submissionError, setSubmissionError] = useState('')
 
   const { push } = useHistory()
@@ -15,6 +15,8 @@ export default function Login() {
       .then((resp) => {
         localStorage.setItem('token', resp.data.token)
         localStorage.setItem('user', JSON.stringify(resp.data.user))
+
+        get()
 
         push('/plants-list')
       })

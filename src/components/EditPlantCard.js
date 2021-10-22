@@ -8,10 +8,19 @@ const initialValues = { nickname: '', species: '', h2o_frequency: '' }
 const initialErrors = { nickname: '', species: '', h2o_frequency: '' }
 
 // receives initial if editing an existing plant
-export default function CreatePlantCard({ cancel, submit }) {
+export default function CreatePlantCard({ initial, cancel, submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
+
+  useEffect(() => {
+    if (initial)
+      setValues(() => ({
+        nickname: initial.nickname,
+        species: initial.species,
+        h2o_frequency: initial.h2o_frequency,
+      }))
+  }, [initial])
 
   // validates input using yup and schema
   const validate = (name, value) => {
@@ -41,7 +50,7 @@ export default function CreatePlantCard({ cancel, submit }) {
     event.preventDefault()
 
     axiosWithAuth()
-      .post('https://water-myplants-backend.herokuapp.com/api/plants/', values)
+      .put(`https://water-myplants-backend.herokuapp.com/api/plants/${initial.plant_id}`, values)
       .then((resp) => {})
       .catch((err) => {
         console.log(err)
@@ -54,6 +63,8 @@ export default function CreatePlantCard({ cancel, submit }) {
   useEffect(() => {
     schema.isValid(values).then((valid) => setDisabled(() => !valid))
   }, [values])
+
+  if (!initial) return null
 
   return (
     <StyledFormCard>

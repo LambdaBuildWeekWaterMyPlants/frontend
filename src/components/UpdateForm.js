@@ -12,10 +12,6 @@ export default function UpdateForm({ user, submit }) {
   const [disabled, setDisabled] = useState(false)
 
   useEffect(() => {
-    if (user) setValues((prev) => ({ ...prev, phoneNumber: user.phoneNumber }))
-  }, [user])
-
-  useEffect(() => {
     schema.isValid(values).then((valid) => setDisabled(() => !valid))
   }, [values])
 
@@ -29,7 +25,6 @@ export default function UpdateForm({ user, submit }) {
     event.preventDefault()
 
     const updatedUser = {
-      username: user.username,
       phoneNumber: values.phoneNumber,
       password: values.password,
     }
