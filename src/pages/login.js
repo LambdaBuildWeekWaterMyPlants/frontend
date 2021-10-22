@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { useHistory } from 'react-router'
 import axios from 'axios'
 import Page from '../components/Page'
 import LoginForm from '../components/LoginForm'
 
 export default function Login() {
+  const [submissionError, setSubmissionError] = useState('')
+
   const { push } = useHistory()
 
   const handleSubmit = (userData) => {
@@ -17,12 +20,16 @@ export default function Login() {
         console.log(resp.data)
         push('/plants-list')
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.error(err)
+        setSubmissionError('Login Error. Try again.')
+      })
   }
 
   return (
     <Page>
       <LoginForm submit={handleSubmit} />
+      <span className='error'>{submissionError}</span>
     </Page>
   )
 }

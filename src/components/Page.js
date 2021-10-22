@@ -9,6 +9,10 @@ const PageContainer = styled.div`
     font-size: 1.8rem;
   }
 
+  span.error {
+    color: ${({ theme }) => theme.red};
+  }
+
   ${({ centered }) => (centered ? `align-items: center; flex-grow: 1;` : null)}
 `
 
