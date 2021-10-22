@@ -1,59 +1,30 @@
 import { useState, useEffect } from 'react'
-import * as yup from 'yup'
-import { updateSchema as schema } from '../validation'
 import { StyledForm } from './StyledForm'
-import { useHistory } from 'react-router-dom'
-import { axiosWithAuth } from '../utils/axiosWithAuth'
+import { updateSchema as schema } from '../validation'
+import { validate } from '../utils/validate'
 
 const initialValues = { phoneNumber: '', password: '' }
 const initialErrors = { phoneNumber: '', password: '' }
 
-// receives a callback function in props named submit
-export default function UpdateForm({ submit }) {
+export default function UpdateForm({ user, submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
-  const { push } = useHistory()
-
-  const [user, setUser] = useState(null)
-
-  // validates input using yup and schema
-  const validate = (name, value) => {
-    yup
-      .reach(schema, name)
-      .validate(value)
-      .then(() => {
-        setErrors((prev) => ({ ...prev, [name]: '' }))
-      })
-      .catch((err) => {
-        setErrors((prev) => ({ ...prev, [name]: err.errors[0] }))
-      })
-  }
 
   useEffect(() => {
-    const localUser = JSON.parse(localStorage.getItem('user'))
-    if (localUser) {
-      console.log(localUser)
+    if (user) setValues((prev) => ({ ...prev, phoneNumber: user.phoneNumber }))
+  }, [user])
 
-      setUser(() => localUser)
-      setValues((prev) => ({ ...prev, phoneNumber: localUser.phoneNumber }))
-    }
-  }, [])
+  useEffect(() => {
+    schema.isValid(values).then((valid) => setDisabled(() => !valid))
+  }, [values])
 
-  // deconstructs event
-  // validates input
-  // updates values state
   const handleChange = (event) => {
     const { name, value } = event.target
-
-    validate(name, value)
-
+    validate(name, value, schema, setErrors)
     setValues((prev) => ({ ...prev, [name]: value }))
   }
 
-  // construct user object from form values
-  // pass newUser to callback function in props
-  // clears values state
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -63,33 +34,16 @@ export default function UpdateForm({ submit }) {
       password: values.password,
     }
 
-    axiosWithAuth()
-      .put(`https://water-myplants-backend.herokuapp.com/api/users/${user.user_id}/`, updatedUser)
-      .then((resp) => {
-        // localStorage.setItem('token', resp.data.token)
-
-        // localStorage.setItem('user', JSON.stringify(resp.data.user))
-
-        // console.log(resp.data)
-        // push('/plants-list')
-        console.log(resp)
-      })
-      .catch((err) => console.log(err))
-
     submit(updatedUser)
-    setValues(() => initialValues)
   }
-
-  // enables button when validation passes
-  useEffect(() => {
-    schema.isValid(values).then((valid) => setDisabled(() => !valid))
-  }, [values])
 
   if (!user) return null
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <h2>Update {user.username}</h2>
+      <h2>
+        Update <span className='username'>{user.username}</span>
+      </h2>
 
       <div className='form-group'>
         <label>

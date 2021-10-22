@@ -10,6 +10,10 @@ export const StyledForm = styled.form`
     font-size: 1.8rem;
     margin-bottom: 10%;
     text-align: center;
+
+    span.username {
+      color: ${({ theme }) => theme.green};
+    }
   }
 
   div.form-group {
