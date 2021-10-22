@@ -1,6 +1,6 @@
 # Water My Plants
 
-[Deployed on Netlify.]()
+[Deployed on Netlify.](https://water-myplants-frontend.netlify.app)
 
 # Frontend
 
