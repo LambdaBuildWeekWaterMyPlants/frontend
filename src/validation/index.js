@@ -17,6 +17,10 @@ export const signUpSchema = yup.object().shape({
   username: username,
   phoneNumber: phoneNumber,
   password: password,
+  confirmPassword: yup
+    .string()
+    .required('Password confirmation is required')
+    .oneOf([yup.ref('password'), null], ''),
 })
 
 export const loginSchema = yup.object().shape({

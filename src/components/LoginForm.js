@@ -39,7 +39,13 @@ export default function LoginForm({ submit }) {
       <div className='form-group'>
         <label>
           Username
-          <input type='text' name='username' value={values.username} onChange={handleChange} />
+          <input
+            type='text'
+            name='username'
+            placeholder='required'
+            value={values.username}
+            onChange={handleChange}
+          />
         </label>
         <div className='error'>
           <span>{errors.username}</span>
@@ -49,7 +55,13 @@ export default function LoginForm({ submit }) {
       <div className='form-group'>
         <label>
           Password
-          <input type='password' name='password' value={values.password} onChange={handleChange} />
+          <input
+            type='password'
+            name='password'
+            placeholder='required'
+            value={values.password}
+            onChange={handleChange}
+          />
         </label>
         <div className='error'>
           <span>{errors.password}</span>

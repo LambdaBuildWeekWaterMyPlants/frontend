@@ -7,8 +7,15 @@ export default function Home({ user }) {
 
   useEffect(() => {
     if (user) push('/plants-list')
-    else push('/login')
-  })
+  }, [user, push])
+
+  if (!user) {
+    return (
+      <Page>
+        <div>Home</div>
+      </Page>
+    )
+  }
 
   return (
     <Page>

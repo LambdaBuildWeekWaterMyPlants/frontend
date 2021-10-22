@@ -3,13 +3,23 @@ import { StyledForm } from './StyledForm'
 import { signUpSchema as schema } from '../validation'
 import { validate } from '../utils/validate'
 
-const initialValues = { username: '', phoneNumber: '', password: '' }
-const initialErrors = { username: '', phoneNumber: '', password: '' }
+const initialValues = { username: '', phoneNumber: '', password: '', confirmPassword: '' }
+const initialErrors = { username: '', phoneNumber: '', password: '', confirmPassword: '' }
 
 export default function SignUpForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
+
+  const [passwordsMatch, setPasswordsMatch] = useState(false)
+
+  useEffect(() => {
+    if (values.password === values.confirmPassword) {
+      setPasswordsMatch(() => true)
+    } else {
+      setPasswordsMatch(() => false)
+    }
+  }, [values])
 
   useEffect(() => {
     schema.isValid(values).then((valid) => setDisabled(() => !valid))
@@ -24,7 +34,13 @@ export default function SignUpForm({ submit }) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    submit(values)
+    const parsedValues = {
+      username: values.username,
+      phoneNumber: values.phoneNumber,
+      password: values.password,
+    }
+
+    submit(parsedValues)
   }
 
   return (
@@ -34,7 +50,13 @@ export default function SignUpForm({ submit }) {
       <div className='form-group'>
         <label>
           Username
-          <input type='text' name='username' value={values.username} onChange={handleChange} />
+          <input
+            type='text'
+            name='username'
+            placeholder='required'
+            value={values.username}
+            onChange={handleChange}
+          />
         </label>
         <div className='error'>
           <span>{errors.username}</span>
@@ -47,6 +69,7 @@ export default function SignUpForm({ submit }) {
           <input
             type='phoneNumber'
             name='phoneNumber'
+            placeholder='required'
             value={values.phoneNumber}
             onChange={handleChange}
           />
@@ -59,10 +82,38 @@ export default function SignUpForm({ submit }) {
       <div className='form-group'>
         <label>
           Password
-          <input type='password' name='password' value={values.password} onChange={handleChange} />
+          <input
+            type='password'
+            name='password'
+            placeholder='required'
+            value={values.password}
+            onChange={handleChange}
+          />
         </label>
         <div className='error'>
           <span>{errors.password}</span>
+        </div>
+      </div>
+
+      <div className='form-group'>
+        <label>
+          Confirm Password
+          <input
+            type='password'
+            name='confirmPassword'
+            placeholder='required'
+            value={values.confirmPassword}
+            onChange={handleChange}
+          />
+        </label>
+        <div className='error'>
+          {!passwordsMatch ? (
+            <span>
+              Passwords must match
+              <br />
+            </span>
+          ) : null}
+          <span>{errors.confirmPassword}</span>
         </div>
       </div>
 
