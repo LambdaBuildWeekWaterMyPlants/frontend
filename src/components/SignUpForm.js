@@ -11,6 +11,7 @@ export default function SignUpForm({ submit }) {
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
 
+  // workaround since yup doesn't have a good way of confirming passwords
   const [passwordsMatch, setPasswordsMatch] = useState(false)
 
   useEffect(() => {

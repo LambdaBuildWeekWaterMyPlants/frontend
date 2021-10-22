@@ -11,6 +11,17 @@ export default function UpdateForm({ user, submit }) {
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
 
+  // workaround since yup doesn't have a good way of confirming passwords
+  const [passwordsMatch, setPasswordsMatch] = useState(false)
+
+  useEffect(() => {
+    if (values.newPassword === values.confirmNewPassword) {
+      setPasswordsMatch(() => true)
+    } else {
+      setPasswordsMatch(() => false)
+    }
+  }, [values])
+
   useEffect(() => {
     schema.isValid(values).then((valid) => setDisabled(() => !valid))
   }, [values])
@@ -102,6 +113,12 @@ export default function UpdateForm({ user, submit }) {
           />
         </label>
         <div className='error'>
+          {!passwordsMatch ? (
+            <span>
+              Passwords must match
+              <br />
+            </span>
+          ) : null}
           <span>{errors.confirmNewPassword}</span>
         </div>
       </div>
