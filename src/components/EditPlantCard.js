@@ -49,14 +49,7 @@ export default function CreatePlantCard({ initial, cancel, submit }) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    axiosWithAuth()
-      .put(`https://water-myplants-backend.herokuapp.com/api/plants/${initial.plant_id}`, values)
-      .then((resp) => {})
-      .catch((err) => {
-        console.log(err)
-      })
-
-    submit()
+    submit(values)
   }
 
   // enables button when validation passes
@@ -69,7 +62,7 @@ export default function CreatePlantCard({ initial, cancel, submit }) {
   return (
     <StyledFormCard>
       <div className='content'>
-        <h2>Create a Plant</h2>
+        <h2>Edit Plant</h2>
       </div>
 
       <form onSubmit={handleSubmit}>

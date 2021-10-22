@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { config } from '../config'
@@ -32,11 +33,18 @@ const HeaderContainer = styled.header`
   }
 `
 
-export default function Header({ user = null, get }) {
+export default function Header({ user = null }) {
+  const [loggedIn, setLoggedIn] = useState(false)
+
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    setLoggedIn(false)
   }
+
+  useEffect(() => {
+    if (user) setLoggedIn(true)
+  }, [user])
 
   return (
     <HeaderContainer>
@@ -46,7 +54,7 @@ export default function Header({ user = null, get }) {
         </Link>
 
         <nav>
-          {user ? (
+          {loggedIn ? (
             <>
               <Link to='/update'>Update</Link>
               <Link onClick={handleLogout} to='/login'>

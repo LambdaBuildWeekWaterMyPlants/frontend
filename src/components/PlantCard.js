@@ -10,8 +10,20 @@ export default function PlantCard({ plant_id, nickname, species, h2o_frequency, 
     axiosWithAuth()
       .delete(`https://water-myplants-backend.herokuapp.com/api/plants/${plant_id}`)
       .then((resp) => {
-        toggleEdit()
         getPlants()
+        toggleEdit()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const handleEditSubmit = (values) => {
+    axiosWithAuth()
+      .put(`https://water-myplants-backend.herokuapp.com/api/plants/${plant_id}`, values)
+      .then((resp) => {
+        getPlants()
+        toggleEdit()
       })
       .catch((err) => {
         console.log(err)
@@ -20,17 +32,12 @@ export default function PlantCard({ plant_id, nickname, species, h2o_frequency, 
 
   const toggleEdit = () => setEditing((prev) => !prev)
 
-  const handleSubmit = () => {
-    getPlants()
-    toggleEdit()
-  }
-
   if (editing) {
     return (
       <EditPlantCard
         initial={{ plant_id, nickname, species, h2o_frequency }}
         cancel={toggleEdit}
-        submit={handleSubmit}
+        submit={handleEditSubmit}
       />
     )
   }
