@@ -7,6 +7,10 @@ const PageContainer = styled.div`
 
   h2 {
     font-size: 1.8rem;
+
+    span.username {
+      color: ${({ theme }) => theme.green};
+    }
   }
 
   span.error {

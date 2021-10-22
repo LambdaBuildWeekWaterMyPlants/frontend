@@ -1,6 +1,7 @@
 import { Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import PrivateRoute from './components/PrivateRoute'
+import { useLocalUser } from './hooks/useLocalUser'
 
 import Home from './pages/home'
 import Login from './pages/login'
@@ -9,18 +10,20 @@ import PlantsList from './pages/plants-list'
 import Update from './pages/update'
 
 export default function App() {
+  const user = useLocalUser()
+
   return (
-    <Layout>
+    <Layout user={user}>
       <Route path='/login'>
         <Login />
       </Route>
       <Route path='/signup'>
         <Signup />
       </Route>
-      <PrivateRoute path='/plants-list' component={PlantsList}/>
-      <PrivateRoute path='/update' component={Update}/>
+      <PrivateRoute path='/plants-list' component={PlantsList} />
+      <PrivateRoute path='/update' component={Update} />
       <Route exact path='/'>
-        <Home />
+        <Home user={user} />
       </Route>
     </Layout>
   )

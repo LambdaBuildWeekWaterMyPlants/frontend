@@ -4,10 +4,13 @@ import PlantCard from '../components/PlantCard'
 import CreatePlantCard from '../components/CreatePlantCard'
 import { StyledCreateButton } from '../components/StyledCreateButton'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
+import { useLocalUser } from '../hooks/useLocalUser'
 
 export default function PlantsList() {
-  const [plants, setPlants] = useState([]) // I assume this will be an array of plant-objects
+  const [plants, setPlants] = useState([])
   const [createButtonClicked, setCreateButtonClicked] = useState(false)
+
+  const user = useLocalUser()
 
   const getPlants = () => {
     axiosWithAuth()
@@ -24,9 +27,13 @@ export default function PlantsList() {
 
   const handleSubmit = () => getPlants()
 
+  if (!user) return null
+
   return (
     <Page>
-      <h2>Plants</h2>
+      <h2>
+        Plants for <span className='username'>{user.username}</span>
+      </h2>
 
       {createButtonClicked ? (
         <CreatePlantCard cancel={toggleClicked} submit={handleSubmit} />

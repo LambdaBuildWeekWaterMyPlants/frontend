@@ -22,17 +22,17 @@ export default function Update() {
 
   const handleSubmit = (userData) => {
     axiosWithAuth()
-      .put(`https://water-myplants-backend.herokuapp.com/api/users/${user.user_id}/`, userData)
-      .then((resp) => {
-        // localStorage.setItem('token', resp.data.token)
+      .put(`https://water-myplants-backend.herokuapp.com/api/users/${user.user_id}`, userData)
+      .then((res) => {
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('user', JSON.stringify(res.data.user))
 
-        // localStorage.setItem('user', JSON.stringify(resp.data.user))
-
-        // console.log(resp.data)
-        console.log(resp)
         push('/plants-list')
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.error(err)
+        setSubmissionError('Server Error. Try again.')
+      })
   }
 
   return (

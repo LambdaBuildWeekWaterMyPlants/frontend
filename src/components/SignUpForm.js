@@ -24,13 +24,7 @@ export default function SignUpForm({ submit }) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    const userData = {
-      username: values.username,
-      phoneNumber: values.phoneNumber,
-      password: values.password,
-    }
-
-    submit(userData)
+    submit(values)
   }
 
   return (
