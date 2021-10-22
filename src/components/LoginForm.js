@@ -1,72 +1,36 @@
 import { useState, useEffect } from 'react'
-import * as yup from 'yup'
-import { loginSchema as schema } from '../validation'
 import { StyledForm } from './StyledForm'
-import axios from 'axios'
-import { useHistory } from 'react-router'
+import { validate } from '../utils/validate'
+import { loginSchema as schema } from '../validation'
 
 const initialValues = { username: '', password: '' }
 const initialErrors = { username: '', password: '' }
 
-// receives a callback function in props named submit
 export default function LoginForm({ submit }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState(initialErrors)
   const [disabled, setDisabled] = useState(false)
-  const { push } = useHistory()
 
-  // validates input using yup and schema
-  const validate = (name, value) => {
-    yup
-      .reach(schema, name)
-      .validate(value)
-      .then(() => {
-        setErrors((prev) => ({ ...prev, [name]: '' }))
-      })
-      .catch((err) => {
-        setErrors((prev) => ({ ...prev, [name]: err.errors[0] }))
-      })
-  }
+  useEffect(() => {
+    schema.isValid(values).then((valid) => setDisabled(() => !valid))
+  }, [values])
 
-  // deconstructs event
-  // validates input
-  // updates values state
   const handleChange = (event) => {
     const { name, value } = event.target
-
-    validate(name, value)
-
+    validate(name, value, schema, setErrors)
     setValues({ ...values, [name]: value })
   }
 
-  // construct user object from form values
-  // pass newUser to callback function in props
-  // clears values state
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    const user = {
+    const userData = {
       username: values.username.trim(),
       password: values.password,
     }
 
-    axios
-      .post('https://water-myplants-backend.herokuapp.com/api/auth/login', user)
-      .then((resp) => {
-        localStorage.setItem('token', resp.data.token)
-
-        localStorage.setItem('user', JSON.stringify(resp.data.user))
-
-        console.log(resp.data)
-        push('/plants-list')
-      })
-      .catch((err) => console.log(err))
+    submit(userData)
   }
-
-  // enables button when validation passes
-  useEffect(() => {
-    schema.isValid(values).then((valid) => setDisabled(() => !valid))
-  }, [values])
 
   return (
     <StyledForm onSubmit={handleSubmit}>
