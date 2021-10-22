@@ -17,7 +17,6 @@ export default function Login({ get }) {
         localStorage.setItem('user', JSON.stringify(resp.data.user))
 
         get()
-
         push('/plants-list')
       })
       .catch((err) => {

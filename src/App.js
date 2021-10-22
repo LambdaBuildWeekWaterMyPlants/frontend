@@ -24,7 +24,7 @@ export default function App() {
   }, [])
 
   return (
-    <Layout user={user} get={handleGet}>
+    <Layout user={user}>
       <Route path='/login'>
         <Login get={handleGet} />
       </Route>

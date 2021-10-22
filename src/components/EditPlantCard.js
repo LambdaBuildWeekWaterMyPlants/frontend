@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import * as yup from 'yup'
-import { axiosWithAuth } from '../utils/axiosWithAuth'
 import { createPlantSchema as schema } from '../validation'
 import { StyledFormCard } from './StyledFormCard'
 

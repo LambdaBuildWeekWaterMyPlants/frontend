@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export function useLocalUser(get) {
+export function useLocalUser(getter) {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -9,7 +9,7 @@ export function useLocalUser(get) {
       const parsedUser = JSON.parse(localUser)
       setUser(() => parsedUser)
     }
-  }, [get])
+  }, [getter])
 
   return user
 }

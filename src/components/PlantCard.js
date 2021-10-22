@@ -9,7 +9,7 @@ export default function PlantCard({ plant_id, nickname, species, h2o_frequency, 
   const handleDelete = () => {
     axiosWithAuth()
       .delete(`https://water-myplants-backend.herokuapp.com/api/plants/${plant_id}`)
-      .then((resp) => {
+      .then(() => {
         getPlants()
         toggleEdit()
       })
