@@ -24,7 +24,7 @@ export const StyledForm = styled.form`
       justify-content: space-between;
 
       input {
-        width: 80%;
+        width: 60%;
         padding: 1px;
         padding-left: 1.25%;
 
