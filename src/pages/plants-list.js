@@ -18,7 +18,7 @@ export default function PlantsList() {
       .then((resp) => {
         setPlants(() => resp.data)
       })
-      .catch((err) => {})
+      .catch((err) => console.error(err))
   }
 
   useEffect(() => getPlants(), [])
@@ -35,7 +35,7 @@ export default function PlantsList() {
   return (
     <Page>
       <h2>
-        Plants for <span className='username'>{user.username}</span>
+        Hello, <span className='username'>{user.username}</span>
       </h2>
 
       {createButtonClicked ? (
